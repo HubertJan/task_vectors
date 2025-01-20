@@ -10,12 +10,14 @@ tokenizer = GPT2Tokenizer.from_pretrained('gpt2')
 task_vector = TaskVector(pretrained.base_model, finetuned.base_model)
 print("Created task vector")
 
+strong_vector = task_vector * -0.5
+
 to_be_trained = GPT2LMHeadModel.from_pretrained("gpt2")
-task_vector.apply_to(to_be_trained.base_model)
+strong_vector.apply_to(to_be_trained.base_model)
 
 
 def example_inference(model):
-    text = "Write me: "
+    text = "Write a text: "
     input_ids = tokenizer.encode(text, return_tensors='pt')
     output_ids = model.generate(input_ids, max_length=50, num_return_sequences=1, do_sample=True, top_k=50)
     generated_text = tokenizer.decode(output_ids[0], skip_special_tokens=True)
