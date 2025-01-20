@@ -8,3 +8,6 @@ pillow
 ffmpeg-python
 cryptography
 cffi
+transformers
+python-lsp-server
+pylance
